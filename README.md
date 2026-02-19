@@ -1,80 +1,181 @@
-# Linky Tracker Package
+<div align="center">
 
-Linky Tracker is a Laravel package for automatic link visit tracking and donation reporting. It works out-of-the-box with Laravel 12+ and requires no JavaScript for tracking visits.
+# 🔗 Linky Tracker Package
+
+### Automatic Link Visit Tracking & Donation Reporting for Laravel
+
+[![Laravel](https://img.shields.io/badge/Laravel-12+-FF2D20?style=for-the-badge&logo=laravel&logoColor=white)](https://laravel.com)
+[![PHP](https://img.shields.io/badge/PHP-8.2+-777BB4?style=for-the-badge&logo=php&logoColor=white)](https://php.net)
+[![License](https://img.shields.io/badge/License-MIT-green?style=for-the-badge)](LICENSE)
+
+*Track visits and donations effortlessly — No JavaScript required!*
+
+</div>
 
 ---
 
-## 1️⃣ Installation
+## ✨ Features
+
+- 🚀 **Zero-Config Visit Tracking** — Automatically tracks all GET requests
+- 📊 **One-Line Donation Reporting** — Simple facade for payment tracking
+- ⚡ **Async Processing** — Uses Laravel Queue for optimal performance
+- 🔧 **Fully Configurable** — Customize via environment variables
+- 🎯 **No JavaScript** — Pure server-side tracking
+- 🔄 **Auto-Registered Middleware** — Works immediately after installation
+
+---
+
+## 📦 Installation
 
 Install the package via Composer:
 
 ```bash
 composer require sadah/linky-tracker
+```
 
 ---
 
-2️⃣ Publish Config
+## ⚙️ Configuration
 
-To customize the package settings, publish the configuration file:
+### 1. Publish Configuration File
 
+Publish the config file to customize settings:
+
+```bash
 php artisan vendor:publish --tag=config
+```
 
-This will create:
+This will create `config/linky.php`.
 
-config/linky.php
+### 2. Environment Variables
 
+Add these variables to your `.env` file:
 
-3️⃣ Add Environment Variables
-Add the following to your .env file:
-
+```env
 LINKY_ENDPOINT=https://linky.sadah.io/api/webhook
 LINKY_TOKEN=l76qYiQMpXotwgS6EPU5teFLibROSjXKNlJaChvh
+```
 
-4️⃣ Automatic Visit Tracking
-	•	All GET requests to your site are automatically tracked.
-	•	No JavaScript or extra code required.
-	•	Visits are sent asynchronously via Laravel Queue for optimal performance.
+---
 
-5️⃣ Donation Tracking (One Line)
+## 🎯 Usage
 
-After a successful payment, you can send donation data using the Facade:
+### Automatic Visit Tracking
 
+**No code needed!** All GET requests are automatically tracked once the package is installed.
+
+- ✅ Tracks page visits automatically
+- ✅ Sends data asynchronously via Laravel Queue
+- ✅ No performance impact on your application
+
+### Donation Tracking
+
+Report donations with a single line of code:
+
+```php
 use Linky;
 
 Linky::donation([
-    'referral_code' => 'ABC123',          // Referral code
-    'amount' => 500,                       // Donation amount
-    'donor_name' => 'John Doe',            // Donor name
-    'donor_email' => 'john@example.com',   // Donor email
-    'transaction_id' => 'TXN123456789',   // Transaction ID
-    'payment_method' => 'credit_card',     // Payment method
+    'referral_code' => 'ABC123',
+    'amount' => 500,
+    'donor_name' => 'John Doe',
+    'donor_email' => 'john@example.com',
+    'transaction_id' => 'TXN123456789',
+    'payment_method' => 'credit_card',
 ]);
+```
 
-One line is enough to record the donation; no JS is needed.
-6️⃣ Queue Setup (Recommended)
+**That's it!** No JavaScript, no complex setup — just one line.
 
-To ensure visit tracking does not slow down page load:
-1.	Configure a queue driver (database or Redis) in config/queue.php.
-2.	Start the queue worker:
-php artisan queue:work
+---
 
-7️⃣ Key Features
-	•	Automatic visit tracking (no JS required)
-	•	One-line donation reporting
-	•	Async queue for performance
-	•	Middleware auto-registered for all web routes
-	•	Easy configuration via .env and config/linky.php
+## 🔄 Queue Setup (Recommended)
 
-8️⃣ Usage Summary
-	•	Install package: composer require sadah/linky-tracker
-	•	Publish config: php artisan vendor:publish --tag=config
-	•	Set .env variables
-	•	Visits tracked automatically
-	•	Donations reported in one line
+To ensure tracking doesn't slow down your application:
 
-This is ready to paste directly into your `README.md`.
+1. **Configure a queue driver** in `config/queue.php`:
+   ```env
+   QUEUE_CONNECTION=database  # or redis
+   ```
 
-If you want, I can also **add a small example section with sample routes and controller usage** so anyone using the package can see a working flow immediately.
+2. **Run migrations** (if using database queue):
+   ```bash
+   php artisan queue:table
+   php artisan migrate
+   ```
 
-Do you want me to add that?
+3. **Start the queue worker**:
+   ```bash
+   php artisan queue:work
+   ```
+
+---
+
+## 📋 Quick Start Guide
+
+| Step | Command |
+|------|---------|
+| **1. Install** | `composer require sadah/linky-tracker` |
+| **2. Publish Config** | `php artisan vendor:publish --tag=config` |
+| **3. Set Environment** | Add `LINKY_ENDPOINT` and `LINKY_TOKEN` to `.env` |
+| **4. Start Queue** | `php artisan queue:work` |
+| **5. Done!** | Visits are tracked automatically ✅ |
+
+---
+
+## 💡 Example Usage
+
+### In Your Controller
+
+```php
+<?php
+
+namespace App\Http\Controllers;
+
+use Linky;
+
+class PaymentController extends Controller
+{
+    public function handlePayment(Request $request)
+    {
+        // Process payment...
+        
+        // Track donation (one line)
+        Linky::donation([
+            'referral_code' => $request->referral_code,
+            'amount' => $request->amount,
+            'donor_name' => $request->name,
+            'donor_email' => $request->email,
+            'transaction_id' => $transaction->id,
+            'payment_method' => 'stripe',
+        ]);
+        
+        return redirect()->route('thank-you');
+    }
+}
+```
+
+---
+
+## 🛠️ Requirements
+
+- PHP 8.2 or higher
+- Laravel 12.0 or higher
+- Composer
+
+---
+
+## 📄 License
+
+This package is open-sourced software licensed under the [MIT license](LICENSE).
+
+---
+
+<div align="center">
+
+**Made with ❤️ for the Laravel Community**
+
+[Report Bug](../../issues) · [Request Feature](../../issues)
+
+</div>
 ```
