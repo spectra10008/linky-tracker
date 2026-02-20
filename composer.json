@@ -2,6 +2,7 @@
   "name": "linky/tracker-package",
   "description": "Linky tracking package for Laravel",
   "type": "library",
+  "license": "MIT",
   "require": {
     "php": ">=8.1",
     "illuminate/support": "^12.0",
