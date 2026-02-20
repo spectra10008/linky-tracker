@@ -1,6 +1,6 @@
 <?php
 
-namespace Sadah\Linky\Services;
+namespace Linky\Tracker\Services;
 
 use Illuminate\Support\Facades\Http;
 

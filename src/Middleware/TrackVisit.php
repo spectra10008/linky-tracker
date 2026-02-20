@@ -3,7 +3,7 @@
 namespace Linky\Tracker\Middleware;
 
 use Closure;
-use Sadah\Linky\Services\LinkyClient;
+use Linky\Tracker\Services\LinkyClient;
 
 class TrackVisit
 {

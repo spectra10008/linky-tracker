@@ -1,6 +1,6 @@
 <?php
 
-namespace Sadah\Linky\Facades;
+namespace Linky\Tracker\Facades;
 
 use Illuminate\Support\Facades\Facade;
 
@@ -8,6 +8,6 @@ class Linky extends Facade
 {
     protected static function getFacadeAccessor()
     {
-        return \Sadah\Linky\Services\LinkyClient::class;
+        return \Linky\Tracker\Services\LinkyClient::class;
     }
 }

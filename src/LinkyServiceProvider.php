@@ -3,7 +3,7 @@ namespace Linky\Tracker;
 
 use Illuminate\Support\ServiceProvider;
 use Linky\Tracker\Middleware\TrackVisit;
-use Sadah\Linky\Services\LinkyClient;
+use Linky\Tracker\Services\LinkyClient;
 
 class LinkyServiceProvider extends ServiceProvider
 {
