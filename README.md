@@ -27,10 +27,34 @@
 
 ## 📦 Installation
 
-Install the package via Composer:
+### Option 1: Install from GitHub (Recommended)
+
+Add the repository to your project's `composer.json`:
+
+```json
+{
+    "repositories": [
+        {
+            "type": "vcs",
+            "url": "https://github.com/spectra10008/linky-tracker.git"
+        }
+    ],
+    "require": {
+        "linky/tracker-package": "^1.0"
+    }
+}
+```
+
+Then install via Composer:
 
 ```bash
-composer require sadah/linky-tracker
+composer require linky/tracker-package:^1.0
+```
+
+### Option 2: Install from Packagist (Coming Soon)
+
+```bash
+composer require linky/tracker-package
 ```
 
 ---
@@ -115,7 +139,7 @@ To ensure tracking doesn't slow down your application:
 
 | Step | Command |
 |------|---------|
-| **1. Install** | `composer require sadah/linky-tracker` |
+| **1. Install** | `composer require linky/tracker-package:^1.0` |
 | **2. Publish Config** | `php artisan vendor:publish --tag=config` |
 | **3. Set Environment** | Add `LINKY_ENDPOINT` and `LINKY_TOKEN` to `.env` |
 | **4. Start Queue** | `php artisan queue:work` |
@@ -159,7 +183,7 @@ class PaymentController extends Controller
 
 ## 🛠️ Requirements
 
-- PHP 8.2 or higher
+- PHP 8.1 or higher
 - Laravel 12.0 or higher
 - Composer
 
